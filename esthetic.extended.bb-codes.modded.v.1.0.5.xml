@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon addon_id="estebbc" title="Esthetic Extended BB-Codes [modded by Exile]" version_string="1.0.5" version_id="1050" url="https://xenforo.info" install_callback_class="Esthetic_EBBC_Service_Manager" install_callback_method="install" uninstall_callback_class="Esthetic_EBBC_Service_Manager" uninstall_callback_method="uninstall">
+  <admin_navigation/>
+  <admin_permissions/>
+  <admin_style_properties/>
+  <admin_templates/>
+  <admin_template_modifications/>
+  <code_events/>
+  <code_event_listeners>
+    <listener event_id="init_dependencies" execute_order="777" callback_class="Esthetic_EBBC_Listener_Dependencies" callback_method="listen" active="1" hint="" description=""/>
+    <listener event_id="load_class_bb_code" execute_order="777" callback_class="Esthetic_EBBC_Listener_BbCode" callback_method="listen" active="1" hint="" description=""/>
+    <listener event_id="load_class_controller" execute_order="777" callback_class="Esthetic_EBBC_Listener_Controller" callback_method="listen" active="1" hint="" description=""/>
+    <listener event_id="load_class_model" execute_order="777" callback_class="Esthetic_EBBC_Listener_Model" callback_method="listen" active="1" hint="" description=""/>
+    <listener event_id="load_class_view" execute_order="777" callback_class="Esthetic_EBBC_Listener_View" callback_method="listen" active="1" hint="" description=""/>
+  </code_event_listeners>
+  <cron/>
+  <email_templates/>
+  <email_template_modifications/>
+  <optiongroups>
+    <option option_id="estebbc_club_groups" edit_format="callback" data_type="array" can_backup="1">
+      <default_value>a:0:{}</default_value>
+      <edit_format_params>Esthetic_EBBC_Option_UserGroupChooser::renderCheckbox</edit_format_params>
+      <sub_options>*</sub_options>
+      <relation group_id="messageOptions" display_order="700"/>
+    </option>
+    <option option_id="estebbc_hide_edit_as_create" edit_format="onoff" data_type="boolean" can_backup="1">
+      <default_value>0</default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="messageOptions" display_order="720"/>
+    </option>
+    <option option_id="estebbc_hide_work_limit" edit_format="textbox" data_type="string" can_backup="1">
+      <default_value></default_value>
+      <edit_format_params></edit_format_params>
+      <sub_options></sub_options>
+      <relation group_id="messageOptions" display_order="710"/>
+    </option>
+  </optiongroups>
+  <permissions>
+    <permission_groups>
+      <permission_group permission_group_id="estebbc"/>
+    </permission_groups>
+    <permissions>
+      <permission permission_group_id="estebbc" permission_id="estebbc_hide_can_view_all" permission_type="flag" default_value="unset" interface_group_id="estebbc" display_order="10"/>
+      <permission permission_group_id="estebbc" permission_id="estebbc_limit_days" permission_type="integer" default_value_int="0" interface_group_id="estebbc" display_order="140"/>
+      <permission permission_group_id="estebbc" permission_id="estebbc_limit_likes" permission_type="integer" default_value_int="0" interface_group_id="estebbc" display_order="120"/>
+      <permission permission_group_id="estebbc" permission_id="estebbc_limit_posts" permission_type="integer" default_value_int="0" interface_group_id="estebbc" display_order="110"/>
+      <permission permission_group_id="estebbc" permission_id="estebbc_limit_trophies" permission_type="integer" default_value_int="0" interface_group_id="estebbc" display_order="130"/>
+    </permissions>
+    <interface_groups>
+      <interface_group interface_group_id="estebbc" display_order="777"/>
+    </interface_groups>
+  </permissions>
+  <phrases>
+    <phrase title="custom_bb_code_button_desc" version_id="1024" version_string="1.0.3 beta 1"><![CDATA[Данный код работает аналогично коду url, но вместо обычной текстовой ссылки будет отображена ссылка в виде кнопки.]]></phrase>
+    <phrase title="custom_bb_code_button_title" global_cache="1" version_id="1024" version_string="1.0.3 beta 1"><![CDATA[Вставить кнопку]]></phrase>
+    <phrase title="custom_bb_code_club_desc" version_id="1001" version_string="1.0.0"><![CDATA[Информация внутри кода отображается только участникам клуба.]]></phrase>
+    <phrase title="custom_bb_code_club_title" global_cache="1" version_id="1020" version_string="1.0.2"><![CDATA[Скрытый текст для участников клуба]]></phrase>
+    <phrase title="custom_bb_code_days_desc" version_id="1024" version_string="1.0.3 beta 1"><![CDATA[Информация внутри кода отображается только определенным, зарегистрированным пользователям, которые провели на форуме указанное количество дней.]]></phrase>
+    <phrase title="custom_bb_code_days_title" global_cache="1" version_id="1024" version_string="1.0.3 beta 1"><![CDATA[Скрыть текст по времени с момента регистрации]]></phrase>
+    <phrase title="custom_bb_code_groups_desc" version_id="1001" version_string="1.0.0"><![CDATA[Отображение информации только для членов перечисленных групп.]]></phrase>
+    <phrase title="custom_bb_code_groups_title" global_cache="1" version_id="1020" version_string="1.0.2"><![CDATA[Скрытый текст для групп]]></phrase>
+    <phrase title="custom_bb_code_hide_desc" version_id="1000" version_string="1.0.0"><![CDATA[Информация внутри кода отображается только определенным, зарегистрированным пользователям, набравшим необходимое количество сообщений на форуме.]]></phrase>
+    <phrase title="custom_bb_code_hide_title" global_cache="1" version_id="1032" version_string="1.0.3"><![CDATA[Скрыть текст по количеству сообщений]]></phrase>
+    <phrase title="custom_bb_code_likes_desc" version_id="1001" version_string="1.0.0"><![CDATA[Информация внутри кода отображается только определенным, зарегистрированным пользователям, набравшим необходимое количество благодарностей на форуме.]]></phrase>
+    <phrase title="custom_bb_code_likes_title" global_cache="1" version_id="1020" version_string="1.0.2"><![CDATA[Скрыть текст по количеству симпатий]]></phrase>
+    <phrase title="custom_bb_code_nocode_desc" version_id="1021" version_string="1.0.2 hotfix 1"><![CDATA[Отменяет рендеринг всех BB-кодов, находящихся внутри тега.]]></phrase>
+    <phrase title="custom_bb_code_nocode_title" global_cache="1" version_id="1021" version_string="1.0.2 hotfix 1"><![CDATA[Отменить коды]]></phrase>
+    <phrase title="custom_bb_code_posts_desc" version_id="1001" version_string="1.0.0"><![CDATA[Аналог кода hide.]]></phrase>
+    <phrase title="custom_bb_code_posts_title" global_cache="1" version_id="1020" version_string="1.0.2"><![CDATA[Скрыть текст по количеству сообщений]]></phrase>
+    <phrase title="custom_bb_code_trophies_desc" version_id="1032" version_string="1.0.3"><![CDATA[Информация внутри кода отображается только определенным, зарегистрированным пользователям, набравшим необходимое количество баллов за трофеи.]]></phrase>
+    <phrase title="custom_bb_code_trophies_title" global_cache="1" version_id="1032" version_string="1.0.3"><![CDATA[Скрыть текст по количеству баллов за трофеи]]></phrase>
+    <phrase title="custom_bb_code_userids_desc" version_id="1032" version_string="1.0.3"><![CDATA[Отображение информации только для пользователей с указанными идентификаторами.]]></phrase>
+    <phrase title="custom_bb_code_userids_title" global_cache="1" version_id="1032" version_string="1.0.3"><![CDATA[Скрытый текст для пользователей]]></phrase>
+    <phrase title="custom_bb_code_users_desc" version_id="1020" version_string="1.0.2"><![CDATA[Скрывает текст от пользователей, за исключением перечисленных в списке параметров BB-кода.]]></phrase>
+    <phrase title="custom_bb_code_users_title" global_cache="1" version_id="1020" version_string="1.0.2"><![CDATA[Отобразить только указанным пользователям]]></phrase>
+    <phrase title="custom_bb_code_visitor_desc" version_id="1020" version_string="1.0.2"><![CDATA[Вместо BB-кода будет отображено имя пользователя, который просматривает страницу.]]></phrase>
+    <phrase title="custom_bb_code_visitor_title" global_cache="1" version_id="1020" version_string="1.0.2"><![CDATA[Вставить имя пользователя]]></phrase>
+    <phrase title="estebbc_hidden_content" version_id="1000" version_string="1.0.0"><![CDATA[Скрытый контент]]></phrase>
+    <phrase title="estebbc_hide_group" version_id="1032" version_string="1.0.3"><![CDATA[Скрытый контент]]></phrase>
+    <phrase title="estebbc_hide_group_title_club" version_id="1032" version_string="1.0.3"><![CDATA[Для клуба]]></phrase>
+    <phrase title="estebbc_hide_group_title_days" version_id="1032" version_string="1.0.3"><![CDATA[По времени(дни) на форуме]]></phrase>
+    <phrase title="estebbc_hide_group_title_groups" version_id="1032" version_string="1.0.3"><![CDATA[Для членов указанных групп]]></phrase>
+    <phrase title="estebbc_hide_group_title_hide" version_id="1032" version_string="1.0.3"><![CDATA[Скрыть контент]]></phrase>
+    <phrase title="estebbc_hide_group_title_likes" version_id="1032" version_string="1.0.3"><![CDATA[По количеству полученных симпатий]]></phrase>
+    <phrase title="estebbc_hide_group_title_organized" version_id="1040" version_string="1.0.4"><![CDATA[По количеству организованных покупок]]></phrase>
+    <phrase title="estebbc_hide_group_title_posts" version_id="1032" version_string="1.0.3"><![CDATA[По количеству сообщений]]></phrase>
+    <phrase title="estebbc_hide_group_title_shoppings" version_id="1032" version_string="1.0.3"><![CDATA[По количеству оплаченных покупок]]></phrase>
+    <phrase title="estebbc_hide_group_title_trophies" version_id="1032" version_string="1.0.3"><![CDATA[По количеству баллов за трофеи]]></phrase>
+    <phrase title="estebbc_hide_group_title_userids" version_id="1032" version_string="1.0.3"><![CDATA[По идентификатору на форуме]]></phrase>
+    <phrase title="estebbc_hide_group_title_users" version_id="1032" version_string="1.0.3"><![CDATA[Для указанных пользователей]]></phrase>
+    <phrase title="estebbc_link" version_id="1024" version_string="1.0.3 beta 1"><![CDATA[Ссылка]]></phrase>
+    <phrase title="estebbc_visitor" version_id="1023" version_string="1.0.2 hotfix 3"><![CDATA[гость]]></phrase>
+    <phrase title="estebbc_warning_club_hidden_content" version_id="1001" version_string="1.0.0"><![CDATA[Скрытый контент для членов клуба.]]></phrase>
+    <phrase title="estebbc_warning_hidden_content" version_id="1000" version_string="1.0.0"><![CDATA[Скрытый контент.]]></phrase>
+    <phrase title="estebbc_warning_hidden_content_extended_accepted" version_id="1032" version_string="1.0.3"><![CDATA[Скрытый контент. Условия доступа выполнены.]]></phrase>
+    <phrase title="estebbc_warning_hidden_content_extended_denied" version_id="1032" version_string="1.0.3"><![CDATA[Скрытый контент. Условия доступа не выполнены.]]></phrase>
+    <phrase title="estebbc_warning_hidden_content_for_groups_x" version_id="1001" version_string="1.0.0"><![CDATA[Скрытый контент для групп: {x}]]></phrase>
+    <phrase title="estebbc_warning_hidden_content_for_userids_x" version_id="1032" version_string="1.0.3"><![CDATA[Скрытый контент для пользователей с идентификаторами: {x}]]></phrase>
+    <phrase title="estebbc_warning_invalid_rule" version_id="1032" version_string="1.0.3"><![CDATA[<span style="color:red;">Недопустимый формат ограничения контента</span>]]></phrase>
+    <phrase title="estebbc_warning_registration_required" version_id="1000" version_string="1.0.0"><![CDATA[Скрытый контент. Для просмотра Вы должны быть зарегистрированным участником.]]></phrase>
+    <phrase title="estebbc_warning_users_hidden_content" version_id="1020" version_string="1.0.2"><![CDATA[Скрытый контент для пользователей {users}.]]></phrase>
+    <phrase title="estebbc_warning_x_days_required" version_id="1024" version_string="1.0.3 beta 1"><![CDATA[Скрытый контент. Для просмотра информации необходимо провести {x} дней на форуме.]]></phrase>
+    <phrase title="estebbc_warning_x_likes_required" version_id="1001" version_string="1.0.0"><![CDATA[Скрытый контент. Для просмотра информации необходимо {x} симпатий.]]></phrase>
+    <phrase title="estebbc_warning_x_messages_required" version_id="1000" version_string="1.0.0"><![CDATA[Скрытый контент. Для просмотра информации необходимо {x} сообщений.]]></phrase>
+    <phrase title="estebbc_warning_x_organized_shoppings_required" version_id="1032" version_string="1.0.3"><![CDATA[Скрытый контент. Для просмотра необходимо организовать и завершить {x} совместных покупок.]]></phrase>
+    <phrase title="estebbc_warning_x_shoppings_required" version_id="1032" version_string="1.0.3"><![CDATA[Скрытый контент. Для просмотра необходимо оплатить {x} совместных покупок.]]></phrase>
+    <phrase title="estebbc_warning_x_trophies_required" version_id="1032" version_string="1.0.3"><![CDATA[Скрытый контент. Для просмотра информации необходимо {x} баллов за трофеи.]]></phrase>
+    <phrase title="option_estebbc_club_groups" version_id="1000" version_string="1.0.0"><![CDATA[Группы-участники клуба]]></phrase>
+    <phrase title="option_estebbc_club_groups_explain" version_id="1000" version_string="1.0.0"><![CDATA[Указанные группы пользователей будут представлены как участники клуба.]]></phrase>
+    <phrase title="option_estebbc_hide_edit_as_create" version_id="1032" version_string="1.0.3"><![CDATA[Использовать дату последнего редактирования как дату создания]]></phrase>
+    <phrase title="option_estebbc_hide_edit_as_create_explain" version_id="1032" version_string="1.0.3"><![CDATA[Если сообщение подвергалось редактированию, при попытке снять ограничение со скрытого контента будет учитываться дата последнего редактирования, а не создания сообщения.]]></phrase>
+    <phrase title="option_estebbc_hide_work_limit" version_id="1032" version_string="1.0.3"><![CDATA[Лимит действия скрывающих кодов]]></phrase>
+    <phrase title="option_estebbc_hide_work_limit_explain" version_id="1032" version_string="1.0.3"><![CDATA[Ограничение по времени срока действия bb-кодов, скрывающих информацию. Если указано числовое значение, вся скрытая информация станет открытой для сообщений, созданных раньше указанного количества дней назад. Если же указана дата (в формате ДД-ММ-ГГГГ), информация станет открытой во всех сообщениях, созданных раньше указанной даты. Если оставить пустым, фильтр применяться не будет.<br />
+<b>Исключение:</b> Коды users и userids.]]></phrase>
+    <phrase title="permission_estebbc_estebbc_hide_can_view_all" version_id="1000" version_string="1.0.0"><![CDATA[Просмотр скрытого содержимого]]></phrase>
+    <phrase title="permission_estebbc_estebbc_limit_days" version_id="1040" version_string="1.0.4"><![CDATA[Игнорирование кода DAYS, если меньше]]></phrase>
+    <phrase title="permission_estebbc_estebbc_limit_likes" version_id="1040" version_string="1.0.4"><![CDATA[Игнорирование кода LIKES, если меньше]]></phrase>
+    <phrase title="permission_estebbc_estebbc_limit_posts" version_id="1040" version_string="1.0.4"><![CDATA[Игнорирование кода POSTS, если меньше]]></phrase>
+    <phrase title="permission_estebbc_estebbc_limit_trophies" version_id="1040" version_string="1.0.4"><![CDATA[Игнорирование кода TROPHIES, если меньше]]></phrase>
+    <phrase title="permission_group_estebbc" version_id="1000" version_string="1.0.0"><![CDATA[Esthetic Extended BB-Codes]]></phrase>
+    <phrase title="permission_interface_estebbc" version_id="1000" version_string="1.0.0"><![CDATA[Esthetic Extended BB-Codes]]></phrase>
+    <phrase title="style_property_estebbc_group_hide_buttons_description_master" version_id="1032" version_string="1.0.3"><![CDATA[]]></phrase>
+    <phrase title="style_property_estebbc_group_hide_buttons_master" version_id="1032" version_string="1.0.3"><![CDATA[Объединять в группу кнопки кодов скрывающих контент]]></phrase>
+    <phrase title="style_property_estebbc_tag_button_description_master" version_id="1024" version_string="1.0.3 beta 1"><![CDATA[]]></phrase>
+    <phrase title="style_property_estebbc_tag_button_focus_description_master" version_id="1024" version_string="1.0.3 beta 1"><![CDATA[]]></phrase>
+    <phrase title="style_property_estebbc_tag_button_focus_master" version_id="1024" version_string="1.0.3 beta 1"><![CDATA[.. Фокус элемента]]></phrase>
+    <phrase title="style_property_estebbc_tag_button_master" version_id="1024" version_string="1.0.3 beta 1"><![CDATA[Стиль тега BUTTON]]></phrase>
+    <phrase title="style_property_group_estebbc_master" version_id="1024" version_string="1.0.3 beta 1"><![CDATA[Esthetic Extended BB-Codes]]></phrase>
+    <phrase title="style_property_group_estebbc_master_desc" version_id="1024" version_string="1.0.3 beta 1"><![CDATA[Стили тегов дополнительных BB-кодов]]></phrase>
+  </phrases>
+  <route_prefixes/>
+  <style_properties>
+    <property property_name="estebbc_tag_button" property_type="css" definition="1" group_name="estebbc" title="Стиль тега BUTTON" description="" css_components="text,background,border,layout,extra" scalar_type="" scalar_parameters="" display_order="100" sub_group=""><![CDATA[{"background-color":"rgb(0, 170, 0)","background-image":"@imagePath\/esthetic\/ebbc\/gradients\/button-4x25.png","background-repeat":"repeat-x","border-radius":"4px","color":"@contentText","extra":"text-align:center;\ndisplay:inline-block;\ntext-decoration:none;","font-family":"'Trebuchet MS',Helvetica,Arial,sans-serif","font-size":"16px","margin-bottom":"2px","margin-left":"6px","margin-right":"6px","margin-top":"2px","padding-bottom":"6px","padding-left":"12px","padding-right":"12px","padding-top":"6px"}]]></property>
+    <property property_name="estebbc_tag_button_focus" property_type="css" definition="1" group_name="estebbc" title=".. Фокус элемента" description="" css_components="text,background,border,layout,extra" scalar_type="" scalar_parameters="" display_order="110" sub_group=""><![CDATA[{"background-color":"rgb(0, 204, 0)","text-decoration":{"none":"none"}}]]></property>
+    <property property_name="estebbc_group_hide_buttons" property_type="scalar" definition="1" group_name="estebbc" title="Объединять в группу кнопки кодов скрывающих контент" description="" css_components="" scalar_type="boolean" scalar_parameters="" display_order="1" sub_group=""><![CDATA[1]]></property>
+    <group group_name="estebbc" display_order="777">
+      <title>Esthetic Extended BB-Codes</title>
+      <description>Стили тегов дополнительных BB-кодов</description>
+    </group>
+  </style_properties>
+  <templates>
+    <template title="estebbc_bb_code_tags.css" version_id="1030" version_string="1.0.3 RC 1"><![CDATA[.messageContent .messageText a.estebbc-tag-button, a.estebbc-tag-button {
+    {xen:property estebbc_tag_button}
+}
+
+a.estebbc-tag-button:hover, a.estebbc-tag-button:focus,
+.messageContent .messageText a.estebbc-tag-button:hover, 
+.messageContent .messageText a.estebbc-tag-button:focus {
+    {xen:property estebbc_tag_button_focus}
+}]]></template>
+    <template title="estebbc_bb_code_tag_button" version_id="1024" version_string="1.0.3 beta 1"><![CDATA[<xen:require css="estebbc_bb_code_tags.css" />
+<a href="{$url}" target="_blank" class="estebbc-tag-button">{xen:raw $text}</a>]]></template>
+    <template title="estebbc_bb_code_tag_hide" version_id="1000" version_string="1.0.0"><![CDATA[<xen:require css="bb_code.css" />
+<xen:require css="estebbc_bb_code.css" />
+
+<xen:comment><!-- content is escaped via parser --></xen:comment>
+<div class="bbCodeBlock bbCodeQuote">
+    <aside>
+        <xen:if is="{$message}">
+            <div class="attribution type">{xen:raw $message}</div>
+        </xen:if>
+    <blockquote class="quoteContainer"><div class="quote">{xen:raw $content}</div><div class="quoteExpand">{xen:phrase click_to_expand}</div></blockquote>
+    </aside>
+</div>]]></template>
+    <template title="estebbc_editor_ui.css" version_id="1032" version_string="1.0.3"><![CDATA[<xen:foreach loop="$customBbCodes" key="$bbCodeTag" value="$bbCode">
+    <xen:if is="{$bbCode.editor_icon_url}">
+        .redactor_dropdown a.estebbc_button_{$bbCodeTag} {
+            background-image: url('{$bbCode.editor_icon_url}');
+            <xen:if is="{$bbCode.sprite_mode} AND {$bbCode.sprite_params}">
+                background-position: {xen:calc '{$bbCode.sprite_params.x} + 1'}px {xen:calc '{$bbCode.sprite_params.y} + 1'}px;
+            </xen:if>
+        }
+    </xen:if>
+</xen:foreach>
+
+html .redactor_toolbar li.redactor_btn_container_estebbc_hide_group a.redactor_btn_estebbc_hide_group {
+    background:transparent url('{xen:property imagePath}/esthetic/ebbc/hide-24x240.png') -1px -1px no-repeat;
+}
+
+html .redactor_dropdown {
+    width:300px;
+}]]></template>
+  </templates>
+  <public_template_modifications>
+    <modification template="editor_js_setup" modification_key="estebbc_editor_js_setup" description="Дополнение панели редактора новыми кнопками" execution_order="777" enabled="1" action="str_replace">
+      <find><![CDATA[<xen:require js="js/xenforo/bb_code_edit.js" />]]></find>
+      <replace><![CDATA[$0
+<xen:if is="{xen:property estebbc_group_hide_buttons}">
+    <xen:require js="js/esthetic/ebbc/bb_code_edit.js" />
+    <xen:require css="estebbc_editor_ui.css" />
+</xen:if>]]></replace>
+    </modification>
+    <modification template="editor_js_setup" modification_key="estebbc_editor_js_setup_phrase" description="Добавление имени кнопки на панели" execution_order="777" enabled="1" action="str_replace">
+      <find><![CDATA[RELANG.xf = {]]></find>
+      <replace><![CDATA[$0
+estebbc_hide_group: "{xen:jsescape {xen:phrase estebbc_hide_group}}",
+estebbc_hide_group_title_club: "{xen:jsescape {xen:phrase estebbc_hide_group_title_club}}",
+estebbc_hide_group_title_days: "{xen:jsescape {xen:phrase estebbc_hide_group_title_days}}",
+estebbc_hide_group_title_groups: "{xen:jsescape {xen:phrase estebbc_hide_group_title_groups}}",
+estebbc_hide_group_title_hide: "{xen:jsescape {xen:phrase estebbc_hide_group_title_hide}}",
+estebbc_hide_group_title_likes: "{xen:jsescape {xen:phrase estebbc_hide_group_title_likes}}",
+estebbc_hide_group_title_trophies: "{xen:jsescape {xen:phrase estebbc_hide_group_title_trophies}}",
+estebbc_hide_group_title_posts: "{xen:jsescape {xen:phrase estebbc_hide_group_title_posts}}",
+estebbc_hide_group_title_users: "{xen:jsescape {xen:phrase estebbc_hide_group_title_users}}",
+estebbc_hide_group_title_userids: "{xen:jsescape {xen:phrase estebbc_hide_group_title_userids}}",
+estebbc_hide_group_title_shoppings: "{xen:jsescape {xen:phrase estebbc_hide_group_title_shoppings}}",
+estebbc_hide_group_title_organized: "{xen:jsescape {xen:phrase estebbc_hide_group_title_organized}}",]]></replace>
+    </modification>
+  </public_template_modifications>
+  <bb_code_media_sites/>
+  <bb_codes>
+    <bb_code bb_code_id="button" bb_code_mode="callback" has_option="yes" callback_class="Esthetic_EBBC_BbCode_Formatter_Extended" callback_method="renderButton" option_regex="" trim_lines_after="0" plain_children="0" disable_smilies="0" disable_nl2br="0" disable_autolink="0" allow_signature="1" editor_icon_url="" sprite_mode="0" active="1">
+      <replace_html><![CDATA[]]></replace_html>
+      <replace_html_email><![CDATA[]]></replace_html_email>
+      <replace_text><![CDATA[]]></replace_text>
+      <example><![CDATA[[button="http://www.google.com"]Поиск[/button] - Отображает кнопку, при нажатии на которую произойдет переход по указанной ссылке.]]></example>
+    </bb_code>
+    <bb_code bb_code_id="club" bb_code_mode="callback" has_option="no" callback_class="Esthetic_EBBC_BbCode_Formatter_Extended" callback_method="renderTagClub" option_regex="" trim_lines_after="0" plain_children="0" disable_smilies="0" disable_nl2br="0" disable_autolink="0" allow_signature="0" editor_icon_url="styles/default/esthetic/ebbc/hide-24x240.png" sprite_mode="1" active="1" sprite_params_x="-1" sprite_params_y="-121">
+      <replace_html><![CDATA[]]></replace_html>
+      <replace_html_email><![CDATA[]]></replace_html_email>
+      <replace_text><![CDATA[]]></replace_text>
+      <example><![CDATA[[club]Привет, мир![/club] - Отображается только участникам клуба.]]></example>
+    </bb_code>
+    <bb_code bb_code_id="days" bb_code_mode="callback" has_option="yes" callback_class="Esthetic_EBBC_BbCode_Formatter_Extended" callback_method="renderDays" option_regex="" trim_lines_after="0" plain_children="0" disable_smilies="0" disable_nl2br="0" disable_autolink="0" allow_signature="0" editor_icon_url="styles/default/esthetic/ebbc/hide-24x240.png" sprite_mode="1" active="1" sprite_params_x="-1" sprite_params_y="-73">
+      <replace_html><![CDATA[]]></replace_html>
+      <replace_html_email><![CDATA[]]></replace_html_email>
+      <replace_text><![CDATA[]]></replace_text>
+      <example><![CDATA[[days=5]Привет, мир![/days] - Отображается только зарегистрированным пользователям, которые зарегистрированы не раньше 5 дней назад.]]></example>
+    </bb_code>
+    <bb_code bb_code_id="groups" bb_code_mode="callback" has_option="yes" callback_class="Esthetic_EBBC_BbCode_Formatter_Extended" callback_method="renderTagShowToGroups" option_regex="" trim_lines_after="0" plain_children="0" disable_smilies="0" disable_nl2br="0" disable_autolink="0" allow_signature="0" editor_icon_url="styles/default/esthetic/ebbc/hide-24x240.png" sprite_mode="1" active="1" sprite_params_x="-1" sprite_params_y="-145">
+      <replace_html><![CDATA[]]></replace_html>
+      <replace_html_email><![CDATA[]]></replace_html_email>
+      <replace_text><![CDATA[]]></replace_text>
+      <example><![CDATA[[groups=1]Привет, мир![/groups] - Отображается только для членов группы с идентификатором 1.]]></example>
+    </bb_code>
+    <bb_code bb_code_id="hide" bb_code_mode="callback" has_option="optional" callback_class="Esthetic_EBBC_BbCode_Formatter_Extended" callback_method="renderTagHide" option_regex="" trim_lines_after="0" plain_children="0" disable_smilies="0" disable_nl2br="0" disable_autolink="0" allow_signature="0" editor_icon_url="styles/default/esthetic/ebbc/hide-24x240.png" sprite_mode="1" active="1" sprite_params_x="-1" sprite_params_y="-1">
+      <replace_html><![CDATA[]]></replace_html>
+      <replace_html_email><![CDATA[]]></replace_html_email>
+      <replace_text><![CDATA[]]></replace_text>
+      <example><![CDATA[[hide]Привет, мир![/hide] - Отображается только зарегистрированным пользователям.
+[hide=5]Привет, мир![/hide] - Отображается только зарегистрированным пользователям, количество сообщений на форуме которых больше или равно 5.]]></example>
+    </bb_code>
+    <bb_code bb_code_id="likes" bb_code_mode="callback" has_option="yes" callback_class="Esthetic_EBBC_BbCode_Formatter_Extended" callback_method="renderLikes" option_regex="" trim_lines_after="0" plain_children="0" disable_smilies="0" disable_nl2br="0" disable_autolink="0" allow_signature="0" editor_icon_url="styles/default/esthetic/ebbc/hide-24x240.png" sprite_mode="1" active="1" sprite_params_x="-1" sprite_params_y="-49">
+      <replace_html><![CDATA[]]></replace_html>
+      <replace_html_email><![CDATA[]]></replace_html_email>
+      <replace_text><![CDATA[]]></replace_text>
+      <example><![CDATA[[likes=5]Привет, мир![/likes] - Отображается только зарегистрированным пользователям, количество симпатий на форуме которых больше или равно 5.]]></example>
+    </bb_code>
+    <bb_code bb_code_id="nocode" bb_code_mode="replace" has_option="no" callback_class="" callback_method="" option_regex="" trim_lines_after="0" plain_children="1" disable_smilies="1" disable_nl2br="0" disable_autolink="1" allow_signature="1" editor_icon_url="" sprite_mode="0" active="1">
+      <replace_html><![CDATA[{text}]]></replace_html>
+      <replace_html_email><![CDATA[]]></replace_html_email>
+      <replace_text><![CDATA[]]></replace_text>
+      <example><![CDATA[[nocode][b]Hello, World![/b][/nocode] - Отображает текст без применения элементов форматирования BB-кодами.]]></example>
+    </bb_code>
+    <bb_code bb_code_id="posts" bb_code_mode="callback" has_option="optional" callback_class="Esthetic_EBBC_BbCode_Formatter_Extended" callback_method="renderTagHide" option_regex="" trim_lines_after="0" plain_children="0" disable_smilies="0" disable_nl2br="0" disable_autolink="0" allow_signature="0" editor_icon_url="styles/default/esthetic/ebbc/hide-24x240.png" sprite_mode="1" active="1" sprite_params_x="-1" sprite_params_y="-25">
+      <replace_html><![CDATA[]]></replace_html>
+      <replace_html_email><![CDATA[]]></replace_html_email>
+      <replace_text><![CDATA[]]></replace_text>
+      <example><![CDATA[[posts]Привет, мир![/posts] - Отображается только зарегистрированным пользователям.
+[posts=5]Привет, мир![/posts] - Отображается только зарегистрированным пользователям, количество сообщений на форуме которых больше или равно 5.]]></example>
+    </bb_code>
+    <bb_code bb_code_id="trophies" bb_code_mode="callback" has_option="yes" callback_class="Esthetic_EBBC_BbCode_Formatter_Extended" callback_method="renderTrophies" option_regex="" trim_lines_after="0" plain_children="0" disable_smilies="0" disable_nl2br="0" disable_autolink="0" allow_signature="0" editor_icon_url="styles/default/esthetic/ebbc/hide-24x240.png" sprite_mode="1" active="1" sprite_params_x="-1" sprite_params_y="-169">
+      <replace_html><![CDATA[]]></replace_html>
+      <replace_html_email><![CDATA[]]></replace_html_email>
+      <replace_text><![CDATA[]]></replace_text>
+      <example><![CDATA[[trophies=5]Привет, мир![/trophies] - Отображается только зарегистрированным пользователям, количество баллов за трофеи на форуме которых больше или равно 5.]]></example>
+    </bb_code>
+    <bb_code bb_code_id="userids" bb_code_mode="callback" has_option="yes" callback_class="Esthetic_EBBC_BbCode_Formatter_Extended" callback_method="renderUserids" option_regex="" trim_lines_after="0" plain_children="0" disable_smilies="0" disable_nl2br="0" disable_autolink="0" allow_signature="0" editor_icon_url="styles/default/esthetic/ebbc/hide-24x240.png" sprite_mode="1" active="1" sprite_params_x="-1" sprite_params_y="-217">
+      <replace_html><![CDATA[]]></replace_html>
+      <replace_html_email><![CDATA[]]></replace_html_email>
+      <replace_text><![CDATA[]]></replace_text>
+      <example><![CDATA[[userids=1,2,3]Привет, мир![/userids] - Отображается только для пользователей с идентификаторами 1, 2, 3.]]></example>
+    </bb_code>
+    <bb_code bb_code_id="users" bb_code_mode="callback" has_option="yes" callback_class="Esthetic_EBBC_BbCode_Formatter_Extended" callback_method="renderUsers" option_regex="" trim_lines_after="0" plain_children="0" disable_smilies="0" disable_nl2br="0" disable_autolink="0" allow_signature="0" editor_icon_url="styles/default/esthetic/ebbc/hide-24x240.png" sprite_mode="1" active="1" sprite_params_x="-1" sprite_params_y="-97">
+      <replace_html><![CDATA[]]></replace_html>
+      <replace_html_email><![CDATA[]]></replace_html_email>
+      <replace_text><![CDATA[]]></replace_text>
+      <example><![CDATA[[users=Alex,John,Bryan]Привет, мир![/users] - Отображается только пользователям Alex, John, Bryan.]]></example>
+    </bb_code>
+    <bb_code bb_code_id="visitor" bb_code_mode="callback" has_option="no" callback_class="Esthetic_EBBC_BbCode_Formatter_Extended" callback_method="renderVisitor" option_regex="" trim_lines_after="0" plain_children="0" disable_smilies="0" disable_nl2br="0" disable_autolink="0" allow_signature="1" editor_icon_url="" sprite_mode="0" active="1">
+      <replace_html><![CDATA[]]></replace_html>
+      <replace_html_email><![CDATA[]]></replace_html_email>
+      <replace_text><![CDATA[]]></replace_text>
+      <example><![CDATA[[visitor][/visitor] - Отобразит имя пользователя, который просматривает страницу. Если пользователь, просматривающий страницу, не авторизован - вставит слово "Гость".]]></example>
+    </bb_code>
+  </bb_codes>
+</addon>

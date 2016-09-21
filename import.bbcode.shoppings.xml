@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bb_codes>
+  <bb_code bb_code_id="organized" bb_code_mode="callback" has_option="yes" callback_class="Esthetic_EBBC_BbCode_Formatter_Extended" callback_method="renderOrganized" option_regex="" trim_lines_after="0" plain_children="0" disable_smilies="0" disable_nl2br="0" disable_autolink="0" allow_signature="0" editor_icon_url="styles/default/esthetic/ebbc/hide-24x240.png" sprite_mode="1" active="1" sprite_params_x="-1" sprite_params_y="-193" title="Скрытый текст по количеству организованных покупок" description="Отображение информации только для пользователей, организовавших указанное количество совместных покупок.">
+    <replace_html><![CDATA[]]></replace_html>
+    <replace_html_email><![CDATA[]]></replace_html_email>
+    <replace_text><![CDATA[]]></replace_text>
+    <example><![CDATA[[organized=organized:5]Привет, мир![/organized] - Отображается только для пользователей, организовавших 5 и более совместных покупок. Статус учитываемых покупок должен быть "завершена".]]></example>
+  </bb_code>
+  <bb_code bb_code_id="shoppings" bb_code_mode="callback" has_option="yes" callback_class="Esthetic_EBBC_BbCode_Formatter_Extended" callback_method="renderShoppings" option_regex="" trim_lines_after="0" plain_children="0" disable_smilies="0" disable_nl2br="0" disable_autolink="0" allow_signature="0" editor_icon_url="styles/default/esthetic/ebbc/hide-24x240.png" sprite_mode="1" active="1" sprite_params_x="-1" sprite_params_y="-193" title="Скрытый текст по количеству совершенных покупок" description="Отображение информации только для пользователей оплативших/организовавших указанное количество совместных покупок.">
+    <replace_html><![CDATA[]]></replace_html>
+    <replace_html_email><![CDATA[]]></replace_html_email>
+    <replace_text><![CDATA[]]></replace_text>
+    <example><![CDATA[[shoppings=5]Привет, мир![/shoppings] - Отображается только для пользователей, оплативших 5 и более совместных покупок.
+[shoppings=organized:5]Привет, мир![/shoppings] - Отображается только для пользователей, организовавших 5 и более совместных покупок. Статус учитываемых покупок должен быть "завершена".]]></example>
+  </bb_code>
+</bb_codes>
